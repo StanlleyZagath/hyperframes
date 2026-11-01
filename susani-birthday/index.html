@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Susani 27 Anos</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      :root {
+        --gold: #f1c75b;
+        --gold2: #b8862b;
+        --ink: #0b0a14;
+        --parch: #e9d5a1;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        background: #000;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+        background: var(--ink);
+        font-family: "EB Garamond", serif;
+        color: #fff;
+        overflow: hidden;
+      }
+      .fill {
+        position: absolute;
+        inset: 0;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .gold {
+        background: linear-gradient(180deg, #fff3c4 0%, #f1c75b 45%, #a8741d 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.8));
+      }
+      .title {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        text-align: center;
+        letter-spacing: 0.04em;
+      }
+      .abs {
+        position: absolute;
+      }
+      .center {
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+      .vign {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(0, 0, 0, 0) 45%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+      }
+      .spark {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #fff6cf 0%,
+          rgba(241, 199, 91, 0.6) 45%,
+          rgba(241, 199, 91, 0) 70%
+        );
+      }
+      .letter {
+        left: 560px;
+        top: 70px;
+        width: 800px;
+        height: 940px;
+        background: linear-gradient(135deg, #f0dfb0, #d9bd7c);
+        border-radius: 14px;
+        box-shadow:
+          0 30px 80px rgba(0, 0, 0, 0.8),
+          inset 0 0 90px rgba(120, 80, 20, 0.45);
+        padding: 70px 80px;
+        color: #3a2410;
+      }
+      .letter h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 44px;
+        text-align: center;
+        color: #5a1d1d;
+        letter-spacing: 0.06em;
+        margin-bottom: 8px;
+      }
+      .letter .sub {
+        text-align: center;
+        font-size: 26px;
+        font-style: italic;
+        margin-bottom: 40px;
+      }
+      .letter p {
+        font-size: 36px;
+        line-height: 1.5;
+        margin-bottom: 26px;
+      }
+      .seal {
+        left: 1160px;
+        top: 830px;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #d33, #7a0d0d 70%);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 80px;
+        color: #f3c96a;
+      }
+      .frame {
+        left: 680px;
+        top: 60px;
+        width: 560px;
+        height: 790px;
+        border-radius: 6px;
+        padding: 20px;
+        background: linear-gradient(135deg, #fff0b3, #b8862b 40%, #6a4510 70%, #f1c75b);
+        box-shadow:
+          0 0 90px rgba(241, 199, 91, 0.55),
+          0 30px 80px rgba(0, 0, 0, 0.8);
+      }
+      .frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .house {
+        top: 250px;
+        width: 380px;
+        height: 600px;
+        border-radius: 20px 20px 190px 190px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 70px;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.7),
+          inset 0 0 0 6px rgba(241, 199, 91, 0.85);
+      }
+      .house .ini {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 150px;
+        color: #f3d584;
+        line-height: 1;
+        text-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+      }
+      .house .nm {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 40px;
+        margin-top: 14px;
+        color: #fff;
+      }
+      .house .tx {
+        font-size: 34px;
+        font-style: italic;
+        text-align: center;
+        padding: 0 40px;
+        margin-top: 26px;
+        line-height: 1.3;
+        color: #fbeec2;
+      }
+      .spell {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 120px;
+      }
+      .spell-d {
+        font-size: 46px;
+        font-style: italic;
+        color: #fbeec2;
+      }
+      .kb {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        object-fit: cover;
+        transform-origin: 50% 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="210"
+      data-width="1920"
+      data-height="1080"
+    >
+      <audio
+        id="bgm"
+        src="assets/music.mp3"
+        data-start="0"
+        data-duration="210"
+        data-volume="0.9"
+        data-fade-in="1.5"
+        data-fade-out="4"
+      ></audio>
+
+      <!-- persistent backdrop: blurred hall + sparks -->
+      <div
+        id="bg"
+        class="fill"
+        style="background: radial-gradient(ellipse at 50% 40%, #2b1d3d 0%, #0b0a14 75%)"
+      ></div>
+      <img
+        id="bgimg"
+        class="fill"
+        src="assets/banner.jpg"
+        style="
+          width: 1920px;
+          height: 1080px;
+          object-fit: cover;
+          filter: blur(18px) brightness(0.35) saturate(1.2);
+          transform: scale(1.15);
+        "
+      />
+      <div id="sparks" class="fill"></div>
+
+      <!-- S1: banner -->
+      <div
+        id="s1"
+        class="scene clip"
+        data-start="0"
+        data-duration="16"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <img id="s1-img" class="kb" data-layout-allow-overflow src="assets/banner.jpg" />
+        <div class="vign"></div>
+      </div>
+
+      <!-- S2: letter -->
+      <div
+        id="s2"
+        class="scene clip"
+        data-start="16"
+        data-duration="18"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <div id="s2-letter" class="abs letter">
+          <h2>HOGWARTS</h2>
+          <div class="sub" style="font-size: 30px">Escola de Magia e Bruxaria</div>
+          <p id="s2-p1">Cara Susani,</p>
+          <p id="s2-p2">
+            Temos o imenso prazer de informar que hoje você completa <b>27 anos</b> de pura magia.
+          </p>
+          <p id="s2-p3">
+            Seu lugar à mesa do Salão Principal está reservado, e a festa já começou!
+          </p>
+          <p id="s2-p4" style="text-align: right; font-style: italic">— A Direção</p>
+        </div>
+        <div id="s2-seal" class="abs seal">H</div>
+      </div>
+
+      <!-- S3: photo -->
+      <div
+        id="s3"
+        class="scene clip"
+        data-start="34"
+        data-duration="20"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <div id="s3-frame" class="abs frame"><img src="assets/susani.jpg" alt="Susani" /></div>
+        <div
+          id="s3-l"
+          class="abs title gold"
+          style="left: 60px; top: 300px; width: 600px; font-size: 84px; line-height: 1.1"
+        >
+          Uma bruxa<br />muito
+        </div>
+        <div
+          id="s3-r"
+          class="abs title gold"
+          style="left: 1260px; top: 300px; width: 600px; font-size: 84px; line-height: 1.1"
+        >
+          especial!<br />✦
+        </div>
+        <div id="s3-name" class="abs center title gold" style="top: 900px; font-size: 100px">
+          Susani
+        </div>
+      </div>
+
+      <!-- S4: 27 -->
+      <div
+        id="s4"
+        class="scene clip"
+        data-start="54"
+        data-duration="18"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <div
+          id="s4-num"
+          class="abs center title gold"
+          style="top: 90px; font-size: 560px; line-height: 1"
+        >
+          0
+        </div>
+        <div id="s4-txt" class="abs center title gold" style="top: 760px; font-size: 90px">
+          anos de magia
+        </div>
+      </div>
+
+      <!-- S5: houses -->
+      <div
+        id="s5"
+        class="scene clip"
+        data-start="72"
+        data-duration="24"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <div id="s5-t" class="abs center title gold" style="top: 60px; font-size: 84px">
+          Votos das quatro casas
+        </div>
+        <div
+          id="s5-h1"
+          class="abs house"
+          style="left: 60px; background: linear-gradient(180deg, #8f1b1b, #4a0c0c)"
+        >
+          <div class="ini">G</div>
+          <div class="nm">Grifinória</div>
+          <div class="tx">Coragem para realizar cada sonho</div>
+        </div>
+        <div
+          id="s5-h2"
+          class="abs house"
+          style="left: 520px; background: linear-gradient(180deg, #1f6b3a, #0b3319)"
+        >
+          <div class="ini">S</div>
+          <div class="nm">Sonserina</div>
+          <div class="tx">Ambição para voar bem alto</div>
+        </div>
+        <div
+          id="s5-h3"
+          class="abs house"
+          style="left: 980px; background: linear-gradient(180deg, #2a4f9a, #12254f)"
+        >
+          <div class="ini">C</div>
+          <div class="nm">Corvinal</div>
+          <div class="tx">Sabedoria para cada escolha</div>
+        </div>
+        <div
+          id="s5-h4"
+          class="abs house"
+          style="left: 1440px; background: linear-gradient(180deg, #d9a21b, #6e4d08)"
+        >
+          <div class="ini">L</div>
+          <div class="nm">Lufa-Lufa</div>
+          <div class="tx">Lealdade de quem te ama</div>
+        </div>
+      </div>
+
+      <!-- S6: cake -->
+      <div
+        id="s6"
+        class="scene clip"
+        data-start="96"
+        data-duration="20"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <img id="s6-img" class="kb" data-layout-allow-overflow src="assets/banner.jpg" />
+        <div class="vign"></div>
+        <div
+          class="abs"
+          style="
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 420px;
+            background: linear-gradient(
+              180deg,
+              rgba(0, 0, 0, 0.97) 0%,
+              rgba(0, 0, 0, 0.9) 55%,
+              rgba(0, 0, 0, 0)
+            );
+          "
+        ></div>
+        <div
+          class="abs"
+          style="
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 260px;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+          "
+        ></div>
+        <div id="s6-t" class="abs center title gold" style="top: 60px; font-size: 110px">
+          Parabéns, Susani!
+        </div>
+        <div id="s6-s" class="abs center title gold" style="top: 920px; font-size: 60px">
+          Faça um pedido e sopre as velas ✦
+        </div>
+      </div>
+
+      <!-- S7: spells -->
+      <div
+        id="s7"
+        class="scene clip"
+        data-start="116"
+        data-duration="24"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <div id="s7-t" class="abs center title gold" style="top: 70px; font-size: 80px">
+          Feitiços de aniversário
+        </div>
+        <div id="s7-a" class="abs center" style="top: 330px; height: 300px">
+          <div class="spell gold">Felicitus Maximus!</div>
+          <div class="spell-d">Felicidade em dose máxima</div>
+        </div>
+        <div id="s7-b" class="abs center" style="top: 330px; height: 300px">
+          <div class="spell gold">Amorus Infinitum!</div>
+          <div class="spell-d">Amor que nunca acaba</div>
+        </div>
+        <div id="s7-c" class="abs center" style="top: 330px; height: 300px">
+          <div class="spell gold">Sorrisus Eternus!</div>
+          <div class="spell-d">Um sorriso para o ano inteiro</div>
+        </div>
+        <div id="s7-d" class="abs center" style="top: 330px; height: 300px">
+          <div class="spell gold">Saudus Perfectus!</div>
+          <div class="spell-d">Saúde e energia para as aventuras</div>
+        </div>
+      </div>
+
+      <!-- S8: owl -->
+      <div
+        id="s8"
+        class="scene clip"
+        data-start="140"
+        data-duration="20"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <img
+          id="s8-img"
+          class="kb"
+          data-layout-allow-overflow
+          src="assets/banner.jpg"
+          style="filter: brightness(0.6)"
+        />
+        <div class="vign"></div>
+        <div
+          class="abs"
+          style="
+            left: 0;
+            top: 0;
+            width: 1250px;
+            height: 1080px;
+            background: linear-gradient(
+              90deg,
+              rgba(0, 0, 0, 0.95) 0%,
+              rgba(0, 0, 0, 0.88) 55%,
+              rgba(0, 0, 0, 0)
+            );
+          "
+        ></div>
+        <div
+          id="s8-t"
+          class="abs title gold"
+          style="
+            left: 60px;
+            top: 90px;
+            width: 1000px;
+            font-size: 80px;
+            text-align: left;
+            line-height: 1.15;
+          "
+        >
+          Hedwig trouxe<br />um recado:
+        </div>
+        <div
+          id="s8-m"
+          class="abs title gold"
+          style="
+            left: 60px;
+            top: 400px;
+            width: 900px;
+            font-size: 60px;
+            text-align: left;
+            line-height: 1.3;
+            font-weight: 700;
+          "
+        >
+          Que seus 27 anos sejam cheios de magia, alegria e novas aventuras!
+        </div>
+      </div>
+
+      <!-- S9: potion -->
+      <div
+        id="s9"
+        class="scene clip"
+        data-start="160"
+        data-duration="24"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <div
+          class="abs letter"
+          style="left: 460px; width: 1000px; top: 60px; height: 960px; padding: 50px 90px"
+        >
+          <h2 style="font-size: 54px">Poção da Felicidade</h2>
+          <div class="sub" style="margin-bottom: 24px">Receita oficial da Susani</div>
+          <p id="s9-1" style="font-size: 42px; margin-bottom: 16px">✦ 27 sorrisos sinceros</p>
+          <p id="s9-2" style="font-size: 42px; margin-bottom: 16px">✦ 1 abraço bem apertado</p>
+          <p id="s9-3" style="font-size: 42px; margin-bottom: 16px">✦ Gargalhadas a gosto</p>
+          <p id="s9-4" style="font-size: 42px; margin-bottom: 16px">✦ Uma pitada de coragem</p>
+          <p id="s9-5" style="font-size: 42px; margin-bottom: 16px">✦ Muito bolo e doces mágicos</p>
+          <p
+            id="s9-6"
+            style="font-size: 42px; font-style: italic; margin-top: 30px; color: #5a1d1d"
+          >
+            Misture com amor e sirva com festa!
+          </p>
+        </div>
+      </div>
+
+      <!-- S10: finale -->
+      <div
+        id="s10"
+        class="scene clip"
+        data-start="184"
+        data-duration="26"
+        data-track-index="1"
+        style="z-index: 10"
+      >
+        <img
+          id="s10-img"
+          class="kb"
+          data-layout-allow-overflow
+          src="assets/banner.jpg"
+          style="filter: blur(10px) brightness(0.4)"
+        />
+        <div class="vign"></div>
+        <div
+          id="s10-frame"
+          class="abs frame"
+          style="left: 1180px; top: 140px; width: 480px; height: 680px"
+        >
+          <img src="assets/susani.jpg" alt="Susani" />
+        </div>
+        <div
+          id="s10-a"
+          class="abs title gold"
+          style="
+            left: 60px;
+            top: 200px;
+            width: 1100px;
+            font-size: 104px;
+            text-align: left;
+            line-height: 1.1;
+          "
+        >
+          Feliz<br />Aniversário,
+        </div>
+        <div
+          id="s10-b"
+          class="abs title gold"
+          style="
+            left: 60px;
+            top: 520px;
+            width: 1100px;
+            font-size: 190px;
+            text-align: left;
+            line-height: 1;
+          "
+        >
+          Susani!
+        </div>
+        <div
+          id="s10-c"
+          class="abs title gold"
+          style="left: 60px; top: 800px; width: 1100px; font-size: 70px; text-align: left"
+        >
+          27 anos de magia ✦
+        </div>
+      </div>
+
+      <!-- fade to black at loop seam -->
+      <div id="blk" class="fill" style="background: #000; z-index: 50; pointer-events: none"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // deterministic sparks
+      let seed = 7;
+      const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+      const sparks = document.getElementById("sparks");
+      for (let i = 0; i < 60; i++) {
+        const d = document.createElement("div");
+        d.className = "spark";
+        const s = 0.6 + rnd() * 1.8;
+        d.style.cssText = `left:${rnd() * 1900}px;top:${rnd() * 1060}px;transform:scale(${s})`;
+        sparks.appendChild(d);
+        const t0 = rnd() * 200;
+        tl.fromTo(
+          d,
+          { y: 0, opacity: 0 },
+          {
+            y: -140 - rnd() * 160,
+            opacity: 0.9,
+            duration: 4,
+            ease: "sine.out",
+            yoyo: true,
+            repeat: 1,
+          },
+          t0,
+        );
+      }
+      // looping: spark layer drifts for whole film
+      tl.fromTo("#bgimg", { scale: 1.15 }, { scale: 1.3, duration: 210, ease: "none" }, 0);
+
+      const ease = "power3.out";
+      const inn = (sel, at, vars = {}) =>
+        tl.fromTo(sel, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease, ...vars }, at);
+      const out = (sel, at) => tl.to(sel, { opacity: 0, duration: 0.8, ease: "power2.in" }, at);
+      const scene = (id, start, dur) => {
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "power1.out" }, start);
+        tl.to(id, { opacity: 0, duration: 1.2, ease: "power1.in" }, start + dur - 1.2);
+      };
+
+      // S1 (0-16)
+      scene("#s1", 0, 16);
+      tl.fromTo("#s1-img", { scale: 1.0 }, { scale: 1.12, duration: 16, ease: "none" }, 0);
+
+      // S2 (16-34)
+      scene("#s2", 16, 18);
+      tl.fromTo(
+        "#s2-letter",
+        { opacity: 0, y: 160, rotation: -4 },
+        { opacity: 1, y: 0, rotation: 0, duration: 2, ease: "power3.out" },
+        16.5,
+      );
+      ["#s2-p1", "#s2-p2", "#s2-p3", "#s2-p4"].forEach((p, i) => inn(p, 19 + i * 2.6));
+      tl.fromTo(
+        "#s2-seal",
+        { opacity: 0, scale: 2.4 },
+        { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)" },
+        28,
+      );
+
+      // S3 (34-54)
+      scene("#s3", 34, 20);
+      tl.fromTo(
+        "#s3-frame",
+        { opacity: 0, scale: 0.8, rotation: -3 },
+        { opacity: 1, scale: 1, rotation: 0, duration: 1.8, ease: "power3.out" },
+        34.5,
+      );
+      tl.fromTo("#s3-frame", { y: 0 }, { y: 18, duration: 18, ease: "sine.inOut" }, 36);
+      tl.fromTo("#s3-l", { opacity: 0, x: -150 }, { opacity: 1, x: 0, duration: 1.6, ease }, 38);
+      tl.fromTo("#s3-r", { opacity: 0, x: 150 }, { opacity: 1, x: 0, duration: 1.6, ease }, 40);
+      inn("#s3-name", 43, { duration: 1.6 });
+
+      // S4 (54-72)
+      scene("#s4", 54, 18);
+      const counter = { v: 0 };
+      tl.fromTo(
+        counter,
+        { v: 0 },
+        {
+          v: 27,
+          duration: 7,
+          ease: "power2.out",
+          onUpdate: () => {
+            document.getElementById("s4-num").textContent = Math.round(counter.v);
+          },
+        },
+        55,
+      );
+      tl.fromTo("#s4-num", { scale: 0.7 }, { scale: 1, duration: 8, ease: "power2.out" }, 55);
+      inn("#s4-txt", 63, { duration: 1.4 });
+
+      // S5 (72-96)
+      scene("#s5", 72, 24);
+      inn("#s5-t", 72.8);
+      ["#s5-h1", "#s5-h2", "#s5-h3", "#s5-h4"].forEach((h, i) =>
+        tl.fromTo(
+          h,
+          { opacity: 0, y: 300 },
+          { opacity: 1, y: 0, duration: 1.4, ease: "back.out(1.2)" },
+          75 + i * 3,
+        ),
+      );
+
+      // S6 (96-116)
+      scene("#s6", 96, 20);
+      tl.fromTo(
+        "#s6-img",
+        { scale: 1.7, transformOrigin: "52% 88%" },
+        { scale: 2.1, transformOrigin: "52% 88%", duration: 20, ease: "power1.inOut" },
+        96,
+      );
+      inn("#s6-t", 99, { duration: 1.6 });
+      inn("#s6-s", 105, { duration: 1.4 });
+
+      // S7 (116-140)
+      scene("#s7", 116, 24);
+      inn("#s7-t", 116.8);
+      [
+        ["#s7-a", 118.5],
+        ["#s7-b", 124],
+        ["#s7-c", 129.5],
+        ["#s7-d", 135],
+      ].forEach(([s, t]) => {
+        tl.fromTo(
+          s,
+          { opacity: 0, scale: 0.7 },
+          { opacity: 1, scale: 1, duration: 1, ease: "back.out(1.6)" },
+          t,
+        );
+        tl.to(s, { opacity: 0, duration: 0.7, ease: "power2.in" }, t + 4.6);
+      });
+
+      // S8 (140-160)
+      scene("#s8", 140, 20);
+      tl.fromTo(
+        "#s8-img",
+        { scale: 1.8, transformOrigin: "80% 68%" },
+        { scale: 2.1, transformOrigin: "80% 68%", duration: 20, ease: "none" },
+        140,
+      );
+      inn("#s8-t", 142, { duration: 1.4 });
+      inn("#s8-m", 146, { duration: 1.6 });
+
+      // S9 (160-184)
+      scene("#s9", 160, 24);
+      ["#s9-1", "#s9-2", "#s9-3", "#s9-4", "#s9-5", "#s9-6"].forEach((p, i) =>
+        inn(p, 162 + i * 2.8),
+      );
+
+      // S10 (184-210)
+      scene("#s10", 184, 26);
+      tl.fromTo("#s10-img", { scale: 1.0 }, { scale: 1.12, duration: 26, ease: "none" }, 184);
+      tl.fromTo(
+        "#s10-frame",
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 1.6, ease: "power3.out" },
+        185.5,
+      );
+      inn("#s10-a", 187, { duration: 1.4 });
+      inn("#s10-b", 189, { duration: 1.6 });
+      inn("#s10-c", 192, { duration: 1.4 });
+
+      // loop seam: start black -> fade in, end -> fade to black
+      tl.fromTo("#blk", { opacity: 1 }, { opacity: 0, duration: 1.2, ease: "none" }, 0);
+      tl.to("#blk", { opacity: 1, duration: 1.2, ease: "none" }, 208.8);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
